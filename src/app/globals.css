@@ -1,8 +1,27 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fafafa;
+  --foreground: #09090b;
+  --card-bg: #ffffff;
+  --card-border: #e4e4e7;
+  --accent: #0ea5e9;
+  --accent-light: #e0f2fe;
+  --accent-dark: #0284c7;
+  --surface: #f4f4f5;
+}
+
+.dark {
+  --background: #09090b;
+  --foreground: #fafafa;
+  --card-bg: #18181b;
+  --card-border: #27272a;
+  --accent: #38bdf8;
+  --accent-light: #0c4a6e;
+  --accent-dark: #7dd3fc;
+  --surface: #18181b;
 }
 
 @theme inline {
@@ -12,15 +31,77 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+body {
+  color: var(--foreground);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 20%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 30% 100%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
+    var(--background);
+  background-attachment: fixed;
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.dark body {
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(14, 165, 233, 0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 100% 30%, rgba(6, 182, 212, 0.08) 0%, transparent 45%),
+    radial-gradient(ellipse at 40% 100%, rgba(56, 189, 248, 0.06) 0%, transparent 50%),
+    var(--background);
+  background-attachment: fixed;
+}
+
+.safe-area-bottom {
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* Gradient text utility */
+.text-gradient {
+  background: linear-gradient(135deg, #0ea5e9 0%, #06b6d4 50%, #0ea5e9 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.dark .text-gradient {
+  background: linear-gradient(135deg, #38bdf8 0%, #22d3ee 50%, #38bdf8 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Subtle mesh gradient background for hero cards */
+.gradient-mesh {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(14, 165, 233, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(6, 182, 212, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(14, 165, 233, 0.04) 0%, transparent 50%);
+}
+
+.dark .gradient-mesh {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(56, 189, 248, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(34, 211, 238, 0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(56, 189, 248, 0.03) 0%, transparent 50%);
+}
+
+/* Glow ring for interactive elements */
+.glow-ring {
+  box-shadow: 0 0 0 1px rgba(14, 165, 233, 0.1), 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.dark .glow-ring {
+  box-shadow: 0 0 0 1px rgba(56, 189, 248, 0.1), 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Animated shimmer for loading states */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, var(--surface) 25%, var(--card-bg) 50%, var(--surface) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s ease-in-out infinite;
 }

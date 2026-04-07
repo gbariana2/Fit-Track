@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  // Dynamic routes like /workout/[id] require server-side rendering
 };
 
 export default nextConfig;
