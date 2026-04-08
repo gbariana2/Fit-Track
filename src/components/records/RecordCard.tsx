@@ -11,7 +11,7 @@ interface RecordCardProps {
 }
 
 export default function RecordCard({ record }: RecordCardProps) {
-  const stats = [
+  const stats: { label: string; value: string; suffix: string; date: string; isGoal?: boolean }[] = [
     {
       label: 'Max Weight',
       value: `${record.maxWeight.value}`,
@@ -24,21 +24,14 @@ export default function RecordCard({ record }: RecordCardProps) {
       suffix: `@ ${record.maxReps.weight} lbs`,
       date: record.maxReps.date,
     },
-    {
-      label: 'Best Volume',
-      value: record.maxVolume.value >= 1000
-        ? `${(record.maxVolume.value / 1000).toFixed(1)}k`
-        : `${record.maxVolume.value}`,
-      suffix: 'lbs',
-      date: record.maxVolume.date,
-    },
     ...(record.estimated1RM.value > 0
       ? [
           {
-            label: 'Est. 1RM',
+            label: '1RM Goal',
             value: `${record.estimated1RM.value}`,
             suffix: 'lbs',
             date: record.estimated1RM.date,
+            isGoal: true,
           },
         ]
       : []),
@@ -58,11 +51,18 @@ export default function RecordCard({ record }: RecordCardProps) {
         )}
       </div>
 
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-3 gap-3">
         {stats.map((stat) => (
-          <div key={stat.label} className="relative">
-            <p className="text-xs font-medium text-gray-500 dark:text-gray-400">{stat.label}</p>
-            <p className="text-lg font-bold text-gray-900 dark:text-white mt-0.5">
+          <div key={stat.label} className={`relative ${stat.isGoal ? 'px-2.5 py-2 rounded-xl bg-sky-50 dark:bg-sky-950/20 border border-sky-200/50 dark:border-sky-800/30' : ''}`}>
+            <p className={`text-xs font-medium ${stat.isGoal ? 'text-sky-600 dark:text-sky-400' : 'text-gray-500 dark:text-gray-400'}`}>
+              {stat.isGoal && (
+                <svg className="w-3 h-3 inline-block mr-0.5 -mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+              )}
+              {stat.label}
+            </p>
+            <p className={`text-lg font-bold mt-0.5 ${stat.isGoal ? 'text-sky-700 dark:text-sky-300' : 'text-gray-900 dark:text-white'}`}>
               {stat.value}
               <span className="text-xs font-normal text-gray-400 dark:text-gray-500 ml-1">
                 {stat.suffix}
@@ -73,7 +73,7 @@ export default function RecordCard({ record }: RecordCardProps) {
                 {formatDate(stat.date)}
               </p>
             )}
-            {isRecentPR(stat.date) && (
+            {isRecentPR(stat.date) && !stat.isGoal && (
               <div className="absolute top-0 right-0 w-2 h-2 rounded-full bg-yellow-400" />
             )}
           </div>
