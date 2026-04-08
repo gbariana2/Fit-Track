@@ -53,16 +53,16 @@ export default function RecordCard({ record }: RecordCardProps) {
 
       <div className="grid grid-cols-3 gap-3">
         {stats.map((stat) => (
-          <div key={stat.label} className={`relative ${stat.isGoal ? 'px-2.5 py-2 rounded-xl bg-sky-50 dark:bg-sky-950/20 border border-sky-200/50 dark:border-sky-800/30' : ''}`}>
-            <p className={`text-xs font-medium ${stat.isGoal ? 'text-sky-600 dark:text-sky-400' : 'text-gray-500 dark:text-gray-400'}`}>
+          <div key={stat.label} className="relative">
+            <p className="text-xs font-medium text-gray-500 dark:text-gray-400">
               {stat.isGoal && (
-                <svg className="w-3 h-3 inline-block mr-0.5 -mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className="w-3 h-3 inline-block mr-0.5 -mt-0.5 text-sky-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                 </svg>
               )}
               {stat.label}
             </p>
-            <p className={`text-lg font-bold mt-0.5 ${stat.isGoal ? 'text-sky-700 dark:text-sky-300' : 'text-gray-900 dark:text-white'}`}>
+            <p className="text-lg font-bold text-gray-900 dark:text-white mt-0.5">
               {stat.value}
               <span className="text-xs font-normal text-gray-400 dark:text-gray-500 ml-1">
                 {stat.suffix}
