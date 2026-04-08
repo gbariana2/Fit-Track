@@ -53,11 +53,11 @@ export default function RecordCard({ record }: RecordCardProps) {
 
       <div className={`grid gap-3 ${stats.length === 3 ? 'grid-cols-3' : 'grid-cols-2'}`}>
         {stats.map((stat) => (
-          <div key={stat.label} className="relative min-w-0">
-            <p className="text-xs font-medium text-gray-500 dark:text-gray-400 truncate">
+          <div key={stat.label} className={`relative min-w-0 ${stat.isGoal ? 'bg-sky-50 dark:bg-sky-950/20 rounded-xl px-2.5 py-2 -mx-0.5' : ''}`}>
+            <p className={`text-xs font-medium truncate ${stat.isGoal ? 'text-sky-600 dark:text-sky-400' : 'text-gray-500 dark:text-gray-400'}`}>
               {stat.isGoal ? '🎯 ' : ''}{stat.label}
             </p>
-            <p className="text-lg font-bold text-gray-900 dark:text-white mt-0.5 truncate">
+            <p className={`text-lg font-bold mt-0.5 truncate ${stat.isGoal ? 'text-sky-700 dark:text-sky-300' : 'text-gray-900 dark:text-white'}`}>
               {stat.value}
               <span className="text-xs font-normal text-gray-400 dark:text-gray-500 ml-1">
                 {stat.suffix}
